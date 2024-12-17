@@ -1,9 +1,8 @@
 import React from 'react';
 import { ImageBackground, TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
 import { RadialGradient } from 'react-native-gradients';
-import { MovieButtons } from '../components'
-import { Left, Heart, Play, Calendar, Clock, Film, Star } from '../assets/icons';
-import { Share, DownloadActive2, HeartActive } from '../assets/icons/active';
+import { Left, Heart, Calendar, Clock, Film, Star } from '../assets/icons';
+import { HeartActive } from '../assets/icons/active';
 
 function BackgroundImage({backdrop_path, title, isFavorite, release_date, runtime, genres, vote_average, onNavigate}) {
   return (
@@ -76,7 +75,7 @@ function BackgroundImage({backdrop_path, title, isFavorite, release_date, runtim
         </View>
       </View>
 
-      <MovieButtons />
+
 
     </ImageBackground>
   );
