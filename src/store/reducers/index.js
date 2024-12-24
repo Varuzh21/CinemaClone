@@ -1,5 +1,5 @@
 import { getUserReducer, postUserReducer } from './users';
-import { getAllGenresReducer, getAllMoviesReducer, getSingleMovieReducer, getCreditsMovieReducer } from './movies';
+import { getAllGenresReducer, getAllMoviesReducer, getSingleMovieReducer, getCreditsMovieReducer, getPopularMoviesReducer } from './movies';
 
 const reducer = {
   postUserReducer,
@@ -7,7 +7,8 @@ const reducer = {
   getAllMoviesReducer,
   getAllGenresReducer,
   getSingleMovieReducer,
-  getCreditsMovieReducer
+  getCreditsMovieReducer,
+  getPopularMoviesReducer
 };
 
 export default reducer;

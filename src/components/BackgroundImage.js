@@ -1,12 +1,14 @@
 import React from 'react';
-import { ImageBackground, TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
 import { RadialGradient } from 'react-native-gradients';
 import { Left, Heart, Calendar, Clock, Film, Star } from '../assets/icons';
+import { MovieButtons } from '../components';
 import { HeartActive } from '../assets/icons/active';
+import FastImage from 'react-native-fast-image';
 
-function BackgroundImage({backdrop_path, title, isFavorite, release_date, runtime, genres, vote_average, onNavigate}) {
+function BackgroundImage({backdrop_path, poster_path, title, isFavorite, release_date, runtime, genres, vote_average, onNavigate}) {
   return (
-    <ImageBackground style={styles.imageBackground} source={{ uri: `https://image.tmdb.org/t/p/w500${backdrop_path}` }}>
+    <FastImage style={styles.imageBackground} source={{ uri: `https://image.tmdb.org/t/p/w500${backdrop_path}` }}>
       <View style={styles.gradientOverlay}>
         <RadialGradient
           colorList={[
@@ -33,9 +35,9 @@ function BackgroundImage({backdrop_path, title, isFavorite, release_date, runtim
       </View>
 
       <View style={styles.imageContainer}>
-        <Image
+        <FastImage
           source={{
-            uri: `https://image.tmdb.org/t/p/w500${backdrop_path}`,
+            uri: `https://image.tmdb.org/t/p/w500${poster_path}`,
           }}
           style={styles.image}
         />
@@ -75,9 +77,9 @@ function BackgroundImage({backdrop_path, title, isFavorite, release_date, runtim
         </View>
       </View>
 
+      <MovieButtons />
 
-
-    </ImageBackground>
+    </FastImage>
   );
 }
 

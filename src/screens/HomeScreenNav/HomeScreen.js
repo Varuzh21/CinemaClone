@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, StatusBar, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import {ScrollView, View, Text, StyleSheet, StatusBar, TouchableOpacity, ActivityIndicator} from 'react-native';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { getUserRequest } from '../../store/actions/users';
-import { getAllGenresRequest, getAllMoviesRequest } from '../../store/actions/movies';
+import { getAllGenresRequest, getPopularMoviesRequest, getAllMoviesRequest } from '../../store/actions/movies';
 import { Search, GenresList, CarouselComponent, MovieCard } from '../../components';
 import { storage } from '../../utils/storage';
-import HeardActive from '../../assets/icons/active/heart_active.svg';
+import { HeartActive } from '../../assets/icons/active';
+import useMemoizedSelectors from '../../hooks/useMemoizedSelectors';
+import FastImage from 'react-native-fast-image';
 
 const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,23 +17,22 @@ const HomeScreen = () => {
 
   const token = storage.getString('userToken');
 
+  console.log(token, "aaaaaaa");
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
-        await dispatch(getUserRequest(token));
-        await Promise.all([
-          dispatch(getAllMoviesRequest()),
-          dispatch(getAllGenresRequest()),
-        ]);
+        setIsLoading(true);
+        dispatch(getUserRequest(token))
+        dispatch(getAllMoviesRequest());
+        dispatch(getPopularMoviesRequest());
+        dispatch(getAllGenresRequest());
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
         setIsLoading(false);
       }
-    };
-
-    fetchData();
+    })();
   }, [token]);
 
   if (isLoading) {
@@ -42,54 +43,54 @@ const HomeScreen = () => {
     );
   }
 
-  const userSelector = useSelector((state) => state.getUserReducer.user) || [];
-  const moviesSelector = useSelector((state) => state.getAllMoviesReducer.movies) || [];
-  const genresSelector = useSelector((state) => state.getAllGenresReducer.genres) || [];
+  const { users,  movies, genres, popularMovies } = useMemoizedSelectors();
+
+  console.log(users, "222");
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor='#1F1D2B' />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.headerContainer}>
             <View style={{ width: '15%' }}>
-              <Image source={{ uri: userSelector.image }} style={styles.icon} />
+              <FastImage source={{ uri: users.image }} style={styles.icon} />
             </View>
             <View style={{ width: '70%', gap: 4 }}>
               <Text style={styles.title}>
-                Hello {userSelector.firstName}
+                Hello {users.firstName}
               </Text>
               <Text style={styles.description}>
                 Let’s stream your favorite movie
               </Text>
             </View>
             <TouchableOpacity style={styles.btn}>
-              <HeardActive />
+              <HeartActive />
             </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.headerArticle}>
-          <Search />
+          <Search onNavigate={() => navigation.navigate('GameScreen')}/>
         </View>
 
         <View style={styles.coursel}>
-          <CarouselComponent data={moviesSelector} />
+          <CarouselComponent data={movies} />
         </View>
 
         <View style={styles.categories}>
           <Text style={styles.categoriesTitle}>Categories</Text>
-          <GenresList genres={genresSelector} />
+          <GenresList genres={genres} />
         </View>
 
         <View style={styles.mostPopular}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
             <Text style={styles.mostPopularTitle}>Most popular</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('MovieDetail')}>
               <Text style={styles.btnText}>See All</Text>
             </TouchableOpacity>
           </View>
-          <MovieCard movie={moviesSelector} onNavigate={(id) => navigation.navigate('MovieDetail', { movieId: id })} />
+          <MovieCard movie={popularMovies} onNavigate={(id) => navigation.navigate('MovieSingle', { movieId: id })} />
         </View>
       </ScrollView>
     </View>

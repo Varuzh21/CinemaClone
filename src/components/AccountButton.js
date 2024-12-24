@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
         color: 'rgb(255, 255, 255)',
         fontFamily: 'Montserrat',
         fontSize: 14,
-        // fontWeight: 500,
         lineHeight: 17,
         letterSpacing: 0.12
     },

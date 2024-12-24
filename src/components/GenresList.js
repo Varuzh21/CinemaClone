@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import { Text, TouchableOpacity, StyleSheet, View, FlatList } from 'react-native';
 
 const GenresList = ({ genres }) => {
@@ -10,7 +10,7 @@ const GenresList = ({ genres }) => {
     }
   }, [genres]);
 
-  const renderItem = ({ item }) => {
+  const renderItem = useCallback(({item}) => {
     const isActive = item.id === activeGenreId;
     return (
       <TouchableOpacity
@@ -20,7 +20,7 @@ const GenresList = ({ genres }) => {
         <Text style={[styles.itemText, isActive && styles.activeText]}>{item.name}</Text>
       </TouchableOpacity>
     );
-  };
+  },[])
 
   return (
     <View style={styles.container}>
@@ -36,7 +36,7 @@ const GenresList = ({ genres }) => {
   );
 };
 
-export default GenresList;
+export default memo(GenresList);
 
 const styles = StyleSheet.create({
   container: {
@@ -50,13 +50,12 @@ const styles = StyleSheet.create({
   carouselItem: {
     width: 111,
     height: 31,
-    paddingVertical: 8,
+    paddingVertical: 5,
     paddingHorizontal: 12,
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 8,
     borderRadius: 8,
-    // backgroundColor: 'transparent',
   },
   activeItem: {
     backgroundColor: 'rgb(37, 40, 54)',

@@ -1,25 +1,25 @@
 import { useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, LogBox } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAllGenresRequest, getAllMoviesRequest, getSingleMoveRequest } from '../../store/actions/movies';
-import { Search, GenresList, MovieCard, RecommendMovie } from '../../components/index';
+import { Search, GenresList, MovieCard, RecommendMovie } from '../../components';
+import useMemoizedSelectors from '../../hooks/useMemoizedSelectors';
 
+LogBox.ignoreAllLogs()
 const SearchScreen = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
     useEffect(() => {
-        Promise.all([
-            dispatch(getAllGenresRequest()),
-            dispatch(getAllMoviesRequest()),
+            dispatch(getAllGenresRequest())
+            dispatch(getAllMoviesRequest())
             dispatch(getSingleMoveRequest(111))
-        ]);
-    }, [dispatch]);
+    },[]);
 
-    const moviesSelector = useSelector((state) => state.getAllMoviesReducer.movies) || [];
-    const genresSelector = useSelector((state) => state.getAllGenresReducer.genres) || [];
-    const singleMovieSelector = useSelector((state) => state.getSingleMovieReducer.singleMovie) || [];
+    const { movies, genres, single} = useMemoizedSelectors()
+
+    console.log(single, "aaaaa");
 
     return (
         <View style={styles.container}>
@@ -28,13 +28,13 @@ const SearchScreen = () => {
             </View>
 
             <View style={styles.genres}>
-                <GenresList genres={genresSelector} />
+                <GenresList genres={genres} />
             </View>
 
             <View style={styles.toDay}>
                 <Text style={styles.toDayTitle}>Today</Text>
                 <View style={styles.toDayDow}>
-                    <RecommendMovie singleMovie={singleMovieSelector} />
+                    <RecommendMovie singleMovie={single} />
                 </View>
             </View>
 
@@ -46,7 +46,7 @@ const SearchScreen = () => {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <MovieCard movie={moviesSelector} onNavigate={(id) => navigation.navigate('MovieDetail', { movieId: id })} />
+                    <MovieCard movie={movies} onNavigate={(id) => navigation.navigate('MovieDetail', { movieId: id })} />
                 </View>
             </View>
         </View>

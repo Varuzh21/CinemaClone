@@ -20,7 +20,6 @@ export const postUserReducer = createReducer(initialState, (builder) => {
 
 export const getUserReducer = createReducer(initialState, (builder) => {
   builder.addCase(getUserRequest.fulfilled, (state, action) => {
-    // console.log(action.payload, "User");
     state.user = action.payload;
   });
   builder.addCase(getUserRequest.rejected, (state, action) => {

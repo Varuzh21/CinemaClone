@@ -1,52 +1,36 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import HomeScreen from '../screens/HomeScreenNav/HomeScreen';
-import MoveDetailScreen from '../screens/HomeScreenNav/MoveDetailScreen';
+import MovieSingleScreen from '../screens/HomeScreenNav/MovieSingleScreen';
 import GameScreen from '../screens/HomeScreenNav/GenreScreen';
+import MovieDetailScreen from '../screens/HomeScreenNav/MovieDeatilScreen';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Left} from '../assets/icons';
-
 
 const Stack = createStackNavigator();
 
 const HomeScreenNav = () => {
   const navigation = useNavigation();
+
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-      }}
-    >
+      }}>
       <Stack.Screen
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
         name="HomeScreen"
         component={HomeScreen}
       />
       <Stack.Screen
-        name="MovieDetail"
-        component={MoveDetailScreen}
-        options={{
-          headerTitleStyle: {
-            color: 'rgb(255, 255, 255)',
-            fontFamily: 'Montserrat',
-            fontSize: 16,
-          },
-          headerTitleAlign: 'center',
-          headerTintColor: 'rgb(255, 255, 255)',
-          headerStyle: { backgroundColor: 'rgb(31, 29, 43)' },
-          headerBackTitleStyle: {
-            color: 'rgb(255, 255, 255)',
-            fontFamily: 'Montserrat',
-            fontSize: 16,
-            fontWeight: 600,
-          },
-        }}
+        name="MovieSingle"
+        component={MovieSingleScreen}
       />
       <Stack.Screen
         name="GameScreen"
         component={GameScreen}
         options={{
-          headerTitle: "Game",
+          headerTitle: 'Game',
           headerShown: true,
           headerTitleAlign: 'center',
           headerTitleStyle: styles.headerTitle,
@@ -54,11 +38,27 @@ const HomeScreenNav = () => {
           headerBackTitleStyle: styles.headerBackTitle,
           headerLeft: () => (
             <TouchableOpacity
+              onPress={() => navigation.navigate('HomeScreen')}
+              style={styles.headerLeftTouchable}>
+              <Left />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="MovieDetail"
+        component={MovieDetailScreen}
+        options={{
+          headerShown: true,
+          headerTitleAlign: 'center',
+          headerTitle: 'Most Popular Movie',
+          headerBackTitleStyle: styles.headerBackTitle,
+          headerTitleStyle: styles.headerTitle,
+          headerStyle: styles.headerStyle,
+          headerLeft: () => (
+            <TouchableOpacity
               onPress={() => navigation.goBack()}
-              style={styles.headerLeftTouchable}
-              accessible={true}
-              accessibilityLabel="Go Back"
-            >
+              style={styles.headerLeftTouchable}>
               <Left />
             </TouchableOpacity>
           ),
@@ -66,7 +66,7 @@ const HomeScreenNav = () => {
       />
     </Stack.Navigator>
   );
-}
+};
 
 export default HomeScreenNav;
 
@@ -78,6 +78,16 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     backgroundColor: '#1F1D2B',
+  },
+  btn: {
+    width: 32,
+    height: 32,
+    backgroundColor: 'rgb(37, 40, 54)',
+    opacity: 0.8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    marginHorizontal: 20,
   },
   headerBackTitle: {
     color: 'rgb(255, 255, 255)',

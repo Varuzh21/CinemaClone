@@ -1,0 +1,13 @@
+<svg width="55" height="24" viewBox="0 0 55 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#filter0_b_544_934)">
+        <rect width="55" height="24" rx="8" fill="#252836" fill-opacity="0.32"/>
+         </g>
+    <defs>
+        <filter id="filter0_b_544_934" x="-20" y="-20" width="95" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_544_934" result="shape"/>
+        </filter>
+        <clipPath id="clip0_544_934">
+            <rect width="16" height="16" fill="white" transform="translate(8 4)"/>
+        </clipPath>
+    </defs>
+</svg>

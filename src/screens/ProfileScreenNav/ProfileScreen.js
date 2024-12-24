@@ -1,16 +1,16 @@
 import { useEffect, useCallback } from 'react';
-import { View, ScrollView, Image, StyleSheet, SafeAreaView, Text, TouchableOpacity, } from 'react-native';
-import { getUserRequest } from '../../store/actions/users';
+import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, } from 'react-native';
+import { EditActive, Premium, ProfileActive, RightActive } from '../../assets/icons/active';
+import { Secret, Badge, Language, Flag, Delete, Secure, Help, About } from '../../assets/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { Button, AccountButton } from '../../components';
+import { getUserRequest } from '../../store/actions/users';
 import { storage } from '../../utils/storage';
-import { EditActive, Premium, ProfileActive, RightActive } from '../../assets/icons/active/index';
-import { Secret, Badge, Language, Flag, Delete, Secure, Help, About } from '../../assets/icons/index'
-import { Button, AccountButton } from '../../components/index';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = (onLogout) => {
     const dispatch = useDispatch();
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
     const userToken = storage.getString('userToken');
 
     useEffect(() => {
@@ -19,7 +19,10 @@ const ProfileScreen = (onLogout) => {
 
     const handleLogout = useCallback(async () => {
         storage.removeItem('userToken');
-
+        navigation.reset({
+            index: 0,
+            routes: [{ routeName: 'Login' }],
+        });
     }, [])
 
     const userSelector = useSelector(state => state.getUserReducer.user) || [];

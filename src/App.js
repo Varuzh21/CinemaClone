@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { SafeAreaView } from 'react-native';
 import { configureReanimatedLogger, ReanimatedLogLevel } from 'react-native-reanimated';
 import { Provider } from 'react-redux';
 import store from '../src/store';
@@ -17,7 +18,9 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <AppNavigator />
+        <SafeAreaView style={{flex: 1}}>
+          <AppNavigator />
+        </SafeAreaView>
       </Provider>
     )
   }

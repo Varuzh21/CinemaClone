@@ -1,11 +1,12 @@
-import React from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { useCallback, memo } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 function CastList({ creditsSelector }) {
-  // Render each item in the FlatList
-  const renderItem = ({ item }) => (
+
+  const renderItem = useCallback(({ item }) => (
     <View style={styles.castCard}>
-      <Image
+      <FastImage
         source={{
           uri: item.profile_path
             ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
@@ -20,7 +21,7 @@ function CastList({ creditsSelector }) {
         {item.job || item.character || 'N/A'}
       </Text>
     </View>
-  );
+  ), []);
 
   return (
     <FlatList
@@ -34,7 +35,7 @@ function CastList({ creditsSelector }) {
   );
 }
 
-export default CastList;
+export default memo(CastList);
 
 const styles = StyleSheet.create({
   castContainer: {

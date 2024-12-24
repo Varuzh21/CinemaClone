@@ -14,6 +14,7 @@ class Api {
     return api.post('https://dummyjson.com/auth/login', from);
   }
   static getUser(userToken) {
+    // console.log(userToken, "1111");
     return api.get('https://dummyjson.com/auth/me', {headers: {'Authorization': `Bearer ${userToken}`}});
   }
   static getAllMovies() {
@@ -21,6 +22,9 @@ class Api {
   }
   static getAllGenres() {
     return api.get('genre/movie/list',)
+  }
+  static getPopularMovies(){
+    return api.get('movie/popular',)
   }
   static getSingleMovie(moveId) {
     return api.get(`movie/${moveId}`,)

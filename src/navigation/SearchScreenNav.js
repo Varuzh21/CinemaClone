@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import SearchScreen from '../screens/SearchScreenNav/SearchScreen';
-import MoveDetailScreen from '../screens/HomeScreenNav/MoveDetailScreen';
+import MoveDetailScreen from '../screens/HomeScreenNav/MovieSingleScreen';
 
 const Stack = createStackNavigator();
 const SearchScreenNav = () => {

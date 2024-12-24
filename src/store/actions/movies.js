@@ -44,3 +44,14 @@ export const getCreditsMovieRequest = createAsyncThunk('get-credits',
     }
   },
 );
+
+export const getPopularMoviesRequest = createAsyncThunk('get-popular-movies',
+  async (payload, thunkAPI) => {
+     try {
+       const { data } = await Api.getPopularMovies(payload);
+       return data;
+     }catch (e) {
+       return thunkAPI.rejectWithValue(e.response.data);
+     }
+  },
+);

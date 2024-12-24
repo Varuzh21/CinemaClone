@@ -8,12 +8,12 @@ const GenreScreen = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
 
   useEffect(() => {
-    dispatch(getAllGenresRequest()); // Fetch genres when the screen loads
-  }, [dispatch]);
+    dispatch(getAllGenresRequest());
+  }, []);
 
   const genresSelector = useSelector((state) => state.getAllGenresReducer.genres) || [];
 
-  // Handle genre selection
+  console.log(genresSelector);
   const handleGenrePress = (genre) => {
     setSelectedGenre(genre.name);
   };

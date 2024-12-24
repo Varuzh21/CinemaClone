@@ -1,23 +1,17 @@
-import { View, ImageBackground, StyleSheet, Text } from 'react-native';
-import { BlurView } from '@react-native-community/blur';
+import { View, StyleSheet, Text } from 'react-native';
 import { Star, Calendar, Clock, Film } from '../assets/icons/index'
+import FastImage from 'react-native-fast-image';
 
 const RecommendMovie = ({ singleMovie }) => {
     return (
         <View style={styles.container}>
             <View style={styles.imageLeftContainer}>
-                <ImageBackground source={{ uri: `https://image.tmdb.org/t/p/w500${singleMovie.backdrop_path}` }} style={styles.image}>
+                <FastImage source={{ uri: `https://image.tmdb.org/t/p/w500${singleMovie.backdrop_path}` }} style={styles.image}>
                     <View style={styles.ratingContainer}>
-                        <BlurView
-                            style={StyleSheet.absoluteFillObject}
-                            blurType="light"
-                            blurAmount={20}
-                            reducedTransparencyFallbackColor="rgba(37, 40, 54, 0.32)"
-                        />
                         <Star width={13} height={12} />
-                        <Text style={styles.starNumber}>{singleMovie.vote_average}</Text>
+                        <Text style={styles.starNumber}>{Math.floor(singleMovie.vote_average)}</Text>
                     </View>
-                </ImageBackground>
+                </FastImage>
             </View>
 
             <View style={styles.imageContainer}>
@@ -38,7 +32,7 @@ const RecommendMovie = ({ singleMovie }) => {
                     </View>
                     <View style={styles.row}>
                         <Film width={20} height={20} />
-                        <Text style={styles.day}>{singleMovie.genres[0].name}</Text>
+                        {/*<Text style={styles.day}>{singleMovie.genres[0].name}</Text>*/}
                     </View>
                 </View>
 

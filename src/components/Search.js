@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInput, StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Search as SearchIcon,  Filter } from '../assets/icons'
+import { Search as SearchIcon, Filter } from '../assets/icons';
 
 const Search = ({onNavigate}) => {
   return (

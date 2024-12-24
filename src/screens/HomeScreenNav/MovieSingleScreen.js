@@ -1,13 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-    SafeAreaView,
-    View,
-    StatusBar,
-    Text,
-    StyleSheet,
-    ActivityIndicator,
-    ScrollView,
-} from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, ActivityIndicator, ScrollView, StatusBar } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { BackgroundImage, CastList } from '../../components';
@@ -31,7 +23,8 @@ const MovieDetailsScreen = () => {
     }, [dispatch, movieId]);
 
     const singleMovieSelector =
-      useSelector((state) => state.getSingleMovieReducer.singleMovie) || {};
+      useSelector((state) => state.getSingleMovieReducer.singleMovie) || [];
+    console.log('singleMovieSelector', singleMovieSelector);
     const creditsSelector =
       useSelector((state) => state.getCreditsMovieReducer.credits) || [];
 
@@ -44,13 +37,14 @@ const MovieDetailsScreen = () => {
     }
 
     return (
-      <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
           <StatusBar backgroundColor="transparent" translucent />
           <View>
               <BackgroundImage
                 backdrop_path={singleMovieSelector.backdrop_path}
                 title={singleMovieSelector.title}
-                isFavorite={() => setIsFavorite((prev) => !prev)}
+                poster_path={singleMovieSelector.poster_path}
+                isFavorite={() => setIsFavorite(!isFavorite)}
                 release_date={singleMovieSelector.release_date?.split('-')[0]}
                 runtime={singleMovieSelector.runtime}
                 genres={singleMovieSelector.genres?.[0]?.name || 'N/A'}
@@ -83,7 +77,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#1C1C27',
     },
     contentContainer: {
-        paddingHorizontal: 24,
+        paddingHorizontal: 16,
     },
     sectionTitle: {
         color: '#fff',

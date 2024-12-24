@@ -1,11 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { getAllMoviesRequest, getAllGenresRequest, getSingleMoveRequest, getCreditsMovieRequest } from '../actions/movies';
+import {
+  getAllMoviesRequest,
+  getAllGenresRequest,
+  getSingleMoveRequest,
+  getCreditsMovieRequest,
+  getPopularMoviesRequest
+} from '../actions/movies';
 
 const initialState = {
   movies: [],
   genres: [],
   credits: [],
   singleMovie: [],
+  popularMovies: [],
 };
 
 export const getAllMoviesReducer = createReducer(initialState, (builder) => {
@@ -43,5 +50,11 @@ export const getSingleMovieReducer = createReducer(initialState, (builder) => {
 export const getCreditsMovieReducer = createReducer(initialState, (builder) => {
   builder.addCase(getCreditsMovieRequest.fulfilled, (state, action) => {
     state.credits = action.payload.cast;
+  })
+})
+
+export const getPopularMoviesReducer = createReducer(initialState, (builder) => {
+  builder.addCase(getPopularMoviesRequest.fulfilled, (state, action) => {
+    state.popularMovies = action.payload.results;
   })
 })
