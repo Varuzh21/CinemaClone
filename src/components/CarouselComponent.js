@@ -41,7 +41,7 @@ const CarouselComponent = ({ data }) => {
           width={width * 0.9}
           height={154}
           autoPlay
-          mode="parallax"
+          // mode="parallax"
           autoPlayInterval={1000}
           data={data}
           renderItem={renderItem}

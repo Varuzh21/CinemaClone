@@ -22,17 +22,17 @@ function BackgroundImage({backdrop_path, poster_path, title, isFavorite, release
           style={styles.gradientOverlay}
         />
       </View>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.btn} onPress={onNavigate}>
-          <Left />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>
-          {title || 'Movie Title'}
-        </Text>
-        <TouchableOpacity style={styles.btn} onPress={isFavorite}>
-          {isFavorite === true ? <HeartActive /> : <Heart />}
-        </TouchableOpacity>
-      </View>
+      {/*<View style={styles.header}>*/}
+      {/*  <TouchableOpacity style={styles.btn} onPress={onNavigate}>*/}
+      {/*    <Left />*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <Text style={styles.headerTitle}>*/}
+      {/*    {title || 'Movie Title'}*/}
+      {/*  </Text>*/}
+      {/*  <TouchableOpacity style={styles.btn} onPress={isFavorite}>*/}
+      {/*    {isFavorite === true ? <HeartActive /> : <Heart />}*/}
+      {/*  </TouchableOpacity>*/}
+      {/*</View>*/}
 
       <View style={styles.imageContainer}>
         <FastImage
@@ -136,6 +136,11 @@ const styles = StyleSheet.create({
     fontSize: 22,
     // fontWeight: 'bold',
     marginVertical: 8,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 12,
   },
   infoRow: {
     flexDirection: 'row',

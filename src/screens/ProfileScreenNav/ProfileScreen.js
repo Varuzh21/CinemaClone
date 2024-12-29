@@ -8,7 +8,7 @@ import { getUserRequest } from '../../store/actions/users';
 import { storage } from '../../utils/storage';
 import { useNavigation } from '@react-navigation/native';
 
-const ProfileScreen = (onLogout) => {
+const ProfileScreen = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const userToken = storage.getString('userToken');
@@ -121,6 +121,7 @@ const ProfileScreen = (onLogout) => {
                             icon={Secure}
                             rightIcon={RightActive}
                             label="Legal and Policies"
+                            onPress={() => navigation.navigate("PrivacyPolicy")}
                         />
                         <View style={styles.borderContainer}>
                             <View style={styles.border} />

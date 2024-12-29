@@ -19,7 +19,6 @@ const SearchScreen = () => {
 
     const { movies, genres, single} = useMemoizedSelectors()
 
-    console.log(single, "aaaaa");
 
     return (
         <View style={styles.container}>

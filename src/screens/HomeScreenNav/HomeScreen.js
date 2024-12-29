@@ -17,8 +17,6 @@ const HomeScreen = () => {
 
   const token = storage.getString('userToken');
 
-  console.log(token, "aaaaaaa");
-
   useEffect(() => {
     (async () => {
       try {
@@ -45,7 +43,6 @@ const HomeScreen = () => {
 
   const { users,  movies, genres, popularMovies } = useMemoizedSelectors();
 
-  console.log(users, "222");
 
   return (
     <View style={styles.container}>

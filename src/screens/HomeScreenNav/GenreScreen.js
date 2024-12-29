@@ -13,7 +13,6 @@ const GenreScreen = () => {
 
   const genresSelector = useSelector((state) => state.getAllGenresReducer.genres) || [];
 
-  console.log(genresSelector);
   const handleGenrePress = (genre) => {
     setSelectedGenre(genre.name);
   };

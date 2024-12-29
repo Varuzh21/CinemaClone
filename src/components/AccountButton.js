@@ -6,7 +6,7 @@ const AccountButton = ({ icon: Icon, rightIcon: RightIcon, label = 'Member', onP
             <View style={styles.container}>
                 <View style={styles.iconContainer}>
                     <View style={styles.iconBackground}>
-                        {Icon && <Icon width={20} height={20} />}
+                        {Icon && <Icon width={20} height={20} fill="#92929D" />}
                     </View>
                     <Text style={styles.accountButtonText}>{label}</Text>
                 </View>

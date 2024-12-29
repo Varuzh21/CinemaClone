@@ -7,7 +7,7 @@ export const postUserRequest = createAsyncThunk('post-User',
       const { data } = await Api.postUser(payload);
       return data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.response.data);
+      return thunkAPI.rejectWithValue(e.response.data.message);
     }
   },
 );
@@ -18,7 +18,7 @@ export const getUserRequest = createAsyncThunk('get-user',
       const { data } = await Api.getUser(payload);
       return data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.response.data);
+      return thunkAPI.rejectWithValue(e.response.data.message);
     }
   },
 );

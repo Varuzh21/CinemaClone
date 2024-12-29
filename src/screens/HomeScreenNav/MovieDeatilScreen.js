@@ -14,7 +14,6 @@ function MovieDeatilScreen() {
 
   const { popularMovies } = useMemoizedSelectors();
 
-  console.log(popularMovies, "test");
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
        <View>
