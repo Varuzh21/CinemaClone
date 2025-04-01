@@ -1,13 +1,25 @@
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import {
+  getAllGenresRequest,
+  getPopularMoviesRequest,
+  getAllMoviesRequest,
+} from '../../store/actions/movies';
+import { Search, GenresList, CarouselComponent, MovieCard, Wrapper } from '../../components';
 import { useEffect, useState } from 'react';
-import {ScrollView, View, Text, StyleSheet, StatusBar, TouchableOpacity, ActivityIndicator} from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { getUserRequest } from '../../store/actions/users';
-import { getAllGenresRequest, getPopularMoviesRequest, getAllMoviesRequest } from '../../store/actions/movies';
-import { Search, GenresList, CarouselComponent, MovieCard } from '../../components';
-import { storage } from '../../utils/storage';
-import { HeartActive } from '../../assets/icons/active';
 import useMemoizedSelectors from '../../hooks/useMemoizedSelectors';
+import { getUserRequest } from '../../store/actions/users';
+import { storage } from '../../utils/storage';
+import {HeartActive} from '../../assets/icons/active';
 import FastImage from 'react-native-fast-image';
 
 const HomeScreen = () => {
@@ -21,7 +33,7 @@ const HomeScreen = () => {
     (async () => {
       try {
         setIsLoading(true);
-        dispatch(getUserRequest(token))
+        dispatch(getUserRequest(token));
         dispatch(getAllMoviesRequest());
         dispatch(getPopularMoviesRequest());
         dispatch(getAllGenresRequest());
@@ -35,64 +47,77 @@ const HomeScreen = () => {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ActivityIndicator size="large" />
       </View>
     );
   }
 
-  const { users,  movies, genres, popularMovies } = useMemoizedSelectors();
-
+  const {users, movies, genres, popularMovies} = useMemoizedSelectors();
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor='#1F1D2B' />
+      <StatusBar backgroundColor="#1F1D2B" />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <View style={styles.headerContainer}>
-            <View style={{ width: '15%' }}>
-              <FastImage source={{ uri: users.image }} style={styles.icon} />
+        <Wrapper>
+          <View style={styles.header}>
+            <View style={styles.headerContainer}>
+              <View style={{width: '15%'}}>
+                <FastImage source={{uri: users.image}} style={styles.icon} />
+              </View>
+              <View style={{width: '70%', gap: 4}}>
+                <Text style={styles.title}>Hello {users.firstName}</Text>
+                <Text style={styles.description}>
+                  Let’s stream your favorite movie
+                </Text>
+              </View>
+              <TouchableOpacity style={styles.btn}>
+                <HeartActive />
+              </TouchableOpacity>
             </View>
-            <View style={{ width: '70%', gap: 4 }}>
-              <Text style={styles.title}>
-                Hello {users.firstName}
-              </Text>
-              <Text style={styles.description}>
-                Let’s stream your favorite movie
-              </Text>
-            </View>
-            <TouchableOpacity style={styles.btn}>
-              <HeartActive />
-            </TouchableOpacity>
           </View>
-        </View>
 
-        <View style={styles.headerArticle}>
-          <Search onNavigate={() => navigation.navigate('GameScreen')}/>
-        </View>
+          <View style={styles.headerArticle}>
+            <Search onNavigate={() => navigation.navigate('GameScreen')} />
+          </View>
+        </Wrapper>
 
-        <View style={styles.coursel}>
+        <View style={styles.carousel}>
           <CarouselComponent data={movies} />
         </View>
 
         <View style={styles.categories}>
-          <Text style={styles.categoriesTitle}>Categories</Text>
+          <Wrapper>
+            <Text style={styles.categoriesTitle}>Categories</Text>
+          </Wrapper>
           <GenresList genres={genres} />
         </View>
 
         <View style={styles.mostPopular}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-            <Text style={styles.mostPopularTitle}>Most popular</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('MovieDetail')}>
-              <Text style={styles.btnText}>See All</Text>
-            </TouchableOpacity>
-          </View>
-          <MovieCard movie={popularMovies} onNavigate={(id) => navigation.navigate('MovieSingle', { movieId: id })} />
+          <Wrapper>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Text style={styles.mostPopularTitle}>Most popular</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('MovieDetail')}>
+                <Text style={styles.btnText}>See All</Text>
+              </TouchableOpacity>
+            </View>
+          </Wrapper>
+
+          <MovieCard
+            movie={popularMovies}
+            onNavigate={id => navigation.navigate('MovieSingle', {movieId: id})}
+          />
         </View>
       </ScrollView>
     </View>
   );
-}
+};
 
 export default HomeScreen;
 
@@ -100,7 +125,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'rgb(31, 29, 43)',
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
   },
   header: {
     width: '100%',
@@ -118,15 +143,15 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'rgb(255, 255, 255)',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat SemiBold',
     fontSize: 16,
-    // fontWeight: 600,
+    fontWeight: '600',
   },
   description: {
     color: 'rgb(146, 146, 157)',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat Medium',
     fontSize: 12,
-    // fontWeight: 500,
+    fontWeight: '500',
   },
   btn: {
     flexDirection: 'row',
@@ -143,35 +168,35 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: 32,
   },
-  coursel: {
+  carousel: {
     width: '100%',
     paddingTop: 30,
-    paddingBottom: 24
+    paddingBottom: 10,
   },
   categories: {
     width: '100%',
-    paddingTop: 24
+    paddingTop: 24,
   },
   categoriesTitle: {
     color: 'rgb(255, 255, 255)',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat SemiBold',
     fontSize: 16,
-    // fontWeight: 600
+    fontWeight: "600"
   },
   mostPopular: {
     width: '100%',
-    paddingTop: 24
+    paddingTop: 24,
   },
   mostPopularTitle: {
     color: 'rgb(255, 255, 255)',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat SemiBold',
     fontSize: 16,
-    // fontWeight: 600
+    fontWeight: "600"
   },
   btnText: {
     color: 'rgb(18, 205, 217)',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat Medium',
     fontSize: 14,
-    // fontWeight: 500,
-  }
-})
+    fontWeight: "500",
+  },
+});

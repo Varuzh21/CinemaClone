@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import Api from '../../Api';
 
 export const postUserRequest = createAsyncThunk('post-User',
@@ -22,3 +22,8 @@ export const getUserRequest = createAsyncThunk('get-user',
     }
   },
 );
+
+export const logOut = createAction('logOut',
+  async (payload, thunkAPI) => {
+
+  })

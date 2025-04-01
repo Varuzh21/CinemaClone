@@ -1,6 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import PropTypes from 'prop-types';
 
 const Button = ({ handlerClick, title, isLoading = false }) => {
   return (
@@ -32,10 +31,10 @@ const styles = StyleSheet.create({
     paddingVertical: 18,
   },
   text: {
-    color: ' rgb(255, 255, 255)',
-    fontFamily: 'Montserrat',
+    color: 'rgb(255, 255, 255)',
+    fontFamily: 'Montserrat Medium',
     fontSize: 16,
-    // fontWeight: '500',
+    fontWeight: '500',
     lineHeight: 20,
     letterSpacing: 0.12,
     textAlign: 'center',

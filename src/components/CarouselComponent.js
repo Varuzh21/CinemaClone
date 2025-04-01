@@ -1,12 +1,19 @@
-import React, { memo, useCallback } from 'react';
-import { View, Text, Dimensions, StyleSheet, ActivityIndicator } from 'react-native';
+import {memo, useCallback} from 'react';
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import FastImage from 'react-native-fast-image';
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
-const CarouselComponent = ({ data }) => {
-  const renderItem = useCallback(({ item }) => (
+const CarouselComponent = ({data}) => {
+  const renderItem = useCallback(
+    ({item}) => (
       <View style={styles.cardContainer}>
         <FastImage
           source={{
@@ -22,7 +29,9 @@ const CarouselComponent = ({ data }) => {
         />
         <View style={styles.overlay}>
           <Text style={styles.title}>
-            {item.title?.length > 25 ? `${item.title.substring(0, 22)}...` : item.title}
+            {item.title?.length > 25
+              ? `${item.title.substring(0, 22)}...`
+              : item.title}
           </Text>
           <Text style={styles.date}>
             {item.release_date
@@ -31,17 +40,17 @@ const CarouselComponent = ({ data }) => {
           </Text>
         </View>
       </View>
-    ),[]);
+    ), []);
 
   return (
     <View style={styles.carouselContainer}>
       {data && data.length > 0 ? (
         <Carousel
           loop
-          width={width * 0.9}
-          height={154}
+          width={width * 0.99}
+          height={200}
           autoPlay
-          // mode="parallax"
+          mode="parallax"
           autoPlayInterval={1000}
           data={data}
           renderItem={renderItem}
@@ -57,13 +66,14 @@ const CarouselComponent = ({ data }) => {
 
 const styles = StyleSheet.create({
   carouselContainer: {
+    width: '100%',
     alignItems: 'center',
   },
   cardContainer: {
     borderRadius: 16,
     overflow: 'hidden',
     width: '100%',
-    height: 154,
+    // height: 154,
     marginBottom: 12,
     backgroundColor: 'rgb(37, 40, 54)',
   },

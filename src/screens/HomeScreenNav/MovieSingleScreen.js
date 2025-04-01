@@ -1,5 +1,14 @@
-import {useEffect, useState} from 'react';
-import {SafeAreaView, View, Text, ImageBackground, StyleSheet, ActivityIndicator, TouchableOpacity, ScrollView, Image,} from 'react-native';
+import { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {RadialGradient} from 'react-native-gradients';
@@ -34,9 +43,9 @@ const MovieDetailsScreen = () => {
 
     if (isLoading) {
         return (
-          <SafeAreaView style={styles.loadingContainer}>
+          <View style={styles.loadingContainer}>
               <ActivityIndicator size="large" color="#F05454" />
-          </SafeAreaView>
+          </View>
         );
     }
 
@@ -69,7 +78,7 @@ const MovieDetailsScreen = () => {
                   <View style={styles.detailsContainer}>
                       <View style={styles.infoRow}>
                           <View style={styles.infoRow}>
-                              <Calendar />
+                              <Calendar fill="#92929D"/>
                               <Text style={styles.infoText}>
                                   {singleMovieSelector.release_date?.split('-')[0] || 'N/A'}
                               </Text>

@@ -1,11 +1,9 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import { Left } from '../assets/icons/index.js';
 import SignInScreen from '../screens/AuthScreenNav/SignInScreen';
 import SignInAndSignUpScreen from '../screens/AuthScreenNav/SignInAndSignUpScreen';
-
 
 const Stack = createStackNavigator();
 
@@ -31,7 +29,6 @@ function AuthNavigator() {
               <TouchableOpacity
                 onPress={() => navigation.goBack()}
                 style={styles.headerLeftTouchable}
-                accessible={true}
                 accessibilityLabel="Go Back"
               >
                 <Left />
@@ -48,7 +45,8 @@ export default AuthNavigator;
 const styles = StyleSheet.create({
   headerTitle: {
     color: 'rgb(255, 255, 255)',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat SemiBold',
+    fontWeight: "600",
     fontSize: 16,
   },
   headerStyle: {
@@ -56,7 +54,8 @@ const styles = StyleSheet.create({
   },
   headerBackTitle: {
     color: 'rgb(255, 255, 255)',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat SemiBold',
+    fontWeight: "600",
   },
   headerLeftTouchable: {
     width: 32,

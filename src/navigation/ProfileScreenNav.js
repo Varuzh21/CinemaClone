@@ -49,7 +49,7 @@ const ProfileScreenNav = () => {
           },
           headerLeft: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('Profile')}
+              onPress={() => navigation.goBack()}
               style={{
                 width: 32,
                 height: 32,

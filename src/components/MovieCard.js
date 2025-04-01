@@ -1,62 +1,63 @@
-import { memo } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Star } from '../assets/icons';
+import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import {memo, useCallback} from 'react';
+import {Star} from '../assets/icons';
 import FastImage from 'react-native-fast-image';
 
-const MovieCard = ({ movie, onNavigate }) => {
+const MovieCard = ({movie, onNavigate}) => {
   if (!movie || movie.length === 0) {
     return <Text style={styles.noMoviesText}>No movies to display</Text>;
   }
 
+  const renderItem = useCallback(({item}) => (
+    <TouchableOpacity
+      style={styles.cardItem}
+      onPress={() => onNavigate(item.id)}
+      accessible
+      accessibilityLabel={`Navigate to movie: ${item.title}`}>
+      <FastImage
+        source={{
+          uri: item.backdrop_path
+            ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
+            : 'https://via.placeholder.com/500x750',
+        }}
+        style={styles.image}>
+        <View style={styles.ratingContainer}>
+          <Star width={13} height={12} />
+          <Text style={styles.starNumber}>
+            {Math.floor(item.vote_average) ?? 'N/A'}
+          </Text>
+        </View>
+      </FastImage>
+      <View style={styles.cardItemFooter}>
+        <Text style={styles.titleText}>
+          {item.title?.length > 15
+            ? `${item.title.substring(0, 12)}...`
+            : item.title ?? 'Untitled'}
+        </Text>
+        <Text style={styles.genreText}>{item.genre || 'Action'}</Text>
+      </View>
+    </TouchableOpacity>
+  ), []);
+
   return (
     <View style={styles.card}>
-      <ScrollView
+      <FlatList
+        data={movie}
         horizontal
+        keyExtractor={item => item.id}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.movieList}
-      >
-        {movie.map((item) => (
-          <TouchableOpacity
-            key={item.id?.toString()}
-            style={styles.cardItem}
-            onPress={() => onNavigate(item.id)}
-            accessible
-            accessibilityLabel={`Navigate to movie: ${item.title}`}
-          >
-            <FastImage
-              source={{
-                uri: item.backdrop_path
-                  ? `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
-                  : 'https://via.placeholder.com/500x750',
-              }}
-              style={styles.image}
-            >
-              <View style={styles.ratingContainer}>
-                <Star width={13} height={12} />
-                <Text style={styles.starNumber}>{Math.floor(item.vote_average ) ?? 'N/A'}</Text>
-              </View>
-            </FastImage>
-            <View style={styles.cardItemFooter}>
-              <Text style={styles.titleText}>
-                {item.title?.length > 15
-                  ? `${item.title.substring(0, 12)}...`
-                  : item.title ?? 'Untitled'}
-              </Text>
-              <Text style={styles.genreText}>{item.genre || 'Action'}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+        renderItem={renderItem}
+      />
     </View>
   );
 };
-
-export default memo(MovieCard);
 
 const styles = StyleSheet.create({
   card: {
     width: '100%',
     paddingTop: 26,
+    paddingLeft: 23
   },
   movieList: {
     alignItems: 'center',
@@ -118,3 +119,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+export default memo(MovieCard);

@@ -44,9 +44,9 @@ const styles = StyleSheet.create({
   },
   label: {
     color: 'rgb(235, 235, 239)',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat Medium',
     fontSize: 12,
-    // fontWeight: '500',
+    fontWeight: '500',
     position: 'absolute',
     bottom: 45,
     left: 15,
@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     paddingHorizontal: 16,
     color: 'rgb(146, 146, 157)',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat Medium',
     fontSize: 14,
-    // fontWeight: '500',
+    fontWeight: '500',
   },
   focusedInput: {
     borderColor: 'rgb(70, 70, 90)',

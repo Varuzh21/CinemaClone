@@ -1,25 +1,12 @@
-import Button from './Button';
-import Input from './Input';
-import Search from './Search';
-import GenresList from './GenresList';
-import MovieCard from './MovieCard';
-import CarouselComponent from './CarouselComponent';
-import AccountButton from './AccountButton';
-import RecommendMovie from './RecommendMovie';
-import BackgroundImage from './BackgroundImage';
-import MovieButtons from './MovieButtons';
-import CastList from './CastList';
-
-export {
-  Button,
-  Input,
-  Search,
-  GenresList,
-  MovieCard,
-  CarouselComponent,
-  AccountButton,
-  RecommendMovie,
-  BackgroundImage,
-  MovieButtons,
-  CastList
-}
+export { default as Button } from './Button';
+export { default as Input} from './Input';
+export { default as Search} from './Search';
+export { default as GenresList} from './GenresList';
+export { default as MovieCard} from './MovieCard';
+export { default as CarouselComponent} from './CarouselComponent';
+export { default as AccountButton} from './AccountButton';
+export { default as RecommendMovie} from './RecommendMovie';
+export { default as BackgroundImage} from './BackgroundImage';
+export { default as MovieButtons} from './MovieButtons';
+export { default as CastList} from './CastList';
+export { default as Wrapper } from './Wrapper';
