@@ -1,4 +1,5 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { storage } from '../../utils/storage';
 import Api from '../../Api';
 
 export const postUserRequest = createAsyncThunk('post-User',
@@ -24,6 +25,6 @@ export const getUserRequest = createAsyncThunk('get-user',
 );
 
 export const logOut = createAction('logOut',
-  async (payload, thunkAPI) => {
-
-  })
+  async () => {
+     await storage.removeItem('userToken');
+  });

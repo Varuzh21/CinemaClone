@@ -1,10 +1,10 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, } from 'react-native';
 import { EditActive, Premium, ProfileActive, RightActive } from '../../assets/icons/active';
 import { Secret, Badge, Language, Flag, Delete, Secure, Help, About } from '../../assets/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, AccountButton } from '../../components';
-import { getUserRequest } from '../../store/actions/users';
+import { getUserRequest, logOut } from '../../store/actions/users';
 import { storage } from '../../utils/storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,14 +16,6 @@ const ProfileScreen = () => {
     useEffect(() => {
         dispatch(getUserRequest(userToken));
     }, [userToken]);
-
-    const handleLogout = useCallback(async () => {
-        storage.removeItem('userToken');
-        navigation.reset({
-            index: 0,
-            routes: [{ routeName: 'Login' }],
-        });
-    }, [])
 
     const userSelector = useSelector(state => state.getUserReducer.user) || [];
 
@@ -145,7 +137,7 @@ const ProfileScreen = () => {
                 </View>
 
                 <View style={{ paddingTop: 40 }}>
-                    <Button title="Log Out" handlerClick={handleLogout} />
+                    <Button title="Log Out" handlerClick={() => logOut()} />
                 </View>
             </ScrollView>
         </View>
