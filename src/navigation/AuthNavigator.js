@@ -7,7 +7,7 @@ import SignInAndSignUpScreen from '../screens/AuthScreenNav/SignInAndSignUpScree
 
 const Stack = createStackNavigator();
 
-function AuthNavigator() {
+function AuthNavigator() { 
   const navigation = useNavigation();
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
